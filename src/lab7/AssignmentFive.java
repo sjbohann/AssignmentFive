@@ -29,21 +29,35 @@ public class AssignmentFive {
     public long compsFound = 0;
     public long compsNotFound = 0;
     
-    public void readDictionary(BinarySearchTree[] listArray) {
+    /**
+     *
+     * @param treeArray: array of Binary Search Trees to be loaded
+     * requires: that random_dictionary.txt exists and is in the correct directory
+     * ensures: that treeArray is loaded with the dictionary words, organized
+     * using the first letter of each word.
+     * 
+     */
+    public void readDictionary(BinarySearchTree[] treeArray) {
         File f = new File("random_dictionary.txt");
         try {
             int i = 0;
             Scanner inf = new Scanner(f);
             while(inf.hasNext()) {
                 String s = inf.nextLine().toLowerCase();
-                listArray[s.charAt(0) - 97].insert(s);
+                treeArray[s.charAt(0) - 97].insert(s);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public void readBook(BinarySearchTree[] listArray) {
+    /**
+     *
+     * @param treeArray: array of Binary Search Trees to be searched
+     * requires: oliver.txt exists and is in the correct directory
+     * ensures: that correct words are found in the treeArray and counted.
+     */
+    public void readBook(BinarySearchTree[] treeArray) {
         try {
             int[] i = new int[1];
             char let;
@@ -56,7 +70,7 @@ public class AssignmentFive {
                 if(Character.isLetter(let))
                     str += Character.toLowerCase(let);
                 if ((Character.isWhitespace(let) || let == '-') && !str.isEmpty()){
-                   if(listArray[str.charAt(0) - 97].search(str,i)) {
+                   if(treeArray[str.charAt(0) - 97].search(str,i)) {
                        wordsFound++;
                        compsFound += i[0];
                    } else {
@@ -72,6 +86,9 @@ public class AssignmentFive {
         }
     }
     
+    /**
+     *
+     */
     public void printResults() {
         System.out.println("Number of words found: " + wordsFound);
         System.out.println("Number of words not found: " + wordsNotFound);
